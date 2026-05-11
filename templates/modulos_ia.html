@@ -1,0 +1,271 @@
+{% extends "base.html" %}
+
+{% block title %}Módulo IA - V Jornadas de Derecho Previsional{% endblock %}
+
+{% block extra_css %}
+/* ─── MODULO IA ───────────────────── */
+.ia-header {
+    background-color: var(--bg-white);
+    padding: 60px 0 40px;
+}
+
+.tabs {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 40px;
+}
+
+.tab-btn {
+    background: white;
+    border: 1px solid var(--primary-light);
+    color: var(--primary);
+    padding: 10px 24px;
+    font-size: 1rem;
+    font-weight: 500;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.tab-btn:hover {
+    background: var(--bg-body);
+}
+
+.tab-btn.active {
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary);
+}
+
+.tab-panel {
+    display: none;
+    animation: fadeIn 0.4s ease;
+}
+
+.tab-panel.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(5px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.module-card {
+    background: white;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+    margin-bottom: 60px;
+}
+
+.module-info {
+    padding: 48px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.module-icon {
+    font-size: 2.5rem;
+    color: var(--primary);
+    margin-bottom: 20px;
+}
+
+.module-info h3 {
+    font-size: 1.8rem;
+    margin-bottom: 16px;
+    color: var(--primary-dark);
+}
+
+.module-info p {
+    color: var(--text-muted);
+    margin-bottom: 24px;
+}
+
+.feature-list {
+    list-style: none;
+}
+
+.feature-list li {
+    position: relative;
+    padding-left: 28px;
+    margin-bottom: 12px;
+    color: var(--text-main);
+    font-size: 0.95rem;
+}
+
+.feature-list li::before {
+    content: '\f00c';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    color: var(--primary-light);
+    position: absolute;
+    left: 0;
+    top: 2px;
+}
+
+.module-video {
+    background: var(--bg-body);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 350px;
+    border-left: 1px solid var(--border-color);
+}
+
+.video-placeholder {
+    text-align: center;
+    color: var(--text-muted);
+}
+
+.video-placeholder i {
+    font-size: 3rem;
+    color: #cccccc;
+    margin-bottom: 16px;
+    display: block;
+}
+
+@media (max-width: 768px) {
+    .module-card {
+        grid-template-columns: 1fr;
+    }
+    .module-video {
+        border-left: none;
+        border-top: 1px solid var(--border-color);
+        min-height: 250px;
+    }
+    .module-info {
+        padding: 32px 24px;
+    }
+}
+{% endblock %}
+
+{% block content %}
+    <section class="ia-header">
+        <div class="container">
+            <h2 class="section-title">Módulo Especial: Innovación Tecnológica y Herramientas de IA</h2>
+            <p style="text-align: center; max-width: 800px; margin: 0 auto; color: var(--text-muted);">Demostración práctica de cómo el Estudio TYE incorporó la Inteligencia Artificial para automatizar cálculos, gestionar expedientes y redactar escritos jurídicos.</p>
+        </div>
+    </section>
+
+    <section style="padding-bottom: 80px;">
+        <div class="container">
+            <!-- TABS -->
+            <div class="tabs">
+                <button class="tab-btn active" onclick="showTab('consultas', this)"><i class="fas fa-comments"></i> Consultas IA</button>
+                <button class="tab-btn" onclick="showTab('calculadoras', this)"><i class="fas fa-calculator"></i> Calculadoras</button>
+                <button class="tab-btn" onclick="showTab('escritos', this)"><i class="fas fa-file-pen"></i> Escritos IA</button>
+                <button class="tab-btn" onclick="showTab('base-datos', this)"><i class="fas fa-database"></i> Gestión de Clientes</button>
+            </div>
+
+            <!-- TAB 1: CONSULTAS -->
+            <div class="tab-panel active" id="tab-consultas">
+                <div class="module-card">
+                    <div class="module-info">
+                        <i class="fas fa-comments module-icon"></i>
+                        <h3>Asistente de Consultas con IA</h3>
+                        <p>Un sistema entrenado sobre la base de datos del estudio que permite buscar y analizar expedientes utilizando lenguaje natural.</p>
+                        <ul class="feature-list">
+                            <li>Búsqueda inteligente por nombre, DNI o carátula.</li>
+                            <li>Resúmenes automáticos de sentencias y expedientes.</li>
+                            <li>Respuestas adaptadas a la terminología jurídica argentina.</li>
+                            <li>Memoria contextual para seguimiento de casos.</li>
+                        </ul>
+                    </div>
+                    <div class="module-video">
+                        <div class="video-placeholder">
+                            <i class="fas fa-play-circle"></i>
+                            <span>Espacio para Video Demostrativo</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 2: CALCULADORAS -->
+            <div class="tab-panel" id="tab-calculadoras">
+                <div class="module-card">
+                    <div class="module-info">
+                        <i class="fas fa-calculator module-icon"></i>
+                        <h3>Calculadoras Previsionales Automatizadas</h3>
+                        <p>Herramientas de cálculo para distintos regímenes previsionales, reduciendo el tiempo de liquidación a segundos con exportación a PDF y Word.</p>
+                        <ul class="feature-list">
+                            <li>Movilidad jubilatoria histórica.</li>
+                            <li>Cálculo de UMA y generación automática de escrito.</li>
+                            <li>Aplicación de topes máximos vigentes de ANSES.</li>
+                            <li>Régimen docente y docente universitario.</li>
+                        </ul>
+                    </div>
+                    <div class="module-video">
+                        <div class="video-placeholder">
+                            <i class="fas fa-play-circle"></i>
+                            <span>Espacio para Video Demostrativo</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 3: ESCRITOS -->
+            <div class="tab-panel" id="tab-escritos">
+                <div class="module-card">
+                    <div class="module-info">
+                        <i class="fas fa-file-pen module-icon"></i>
+                        <h3>Generación Automática de Escritos</h3>
+                        <p>Redacción asistida de documentos jurídicos completos a partir de los datos procesados del expediente.</p>
+                        <ul class="feature-list">
+                            <li>Escritos de liquidación (primera vez, ampliación, descuentos).</li>
+                            <li>Redacción de agravios y apelaciones asistida por IA.</li>
+                            <li>Generación de demandas completas estructuradas.</li>
+                            <li>Exportación directa en formato Word (.docx).</li>
+                        </ul>
+                    </div>
+                    <div class="module-video">
+                        <div class="video-placeholder">
+                            <i class="fas fa-play-circle"></i>
+                            <span>Espacio para Video Demostrativo</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 4: BASE DE DATOS -->
+            <div class="tab-panel" id="tab-base-datos">
+                <div class="module-card">
+                    <div class="module-info">
+                        <i class="fas fa-database module-icon"></i>
+                        <h3>Extracción de Datos de Clientes</h3>
+                        <p>Carga y registro automático de nuevos clientes y expedientes mediante tecnología de reconocimiento óptico (OCR) e IA.</p>
+                        <ul class="feature-list">
+                            <li>Lectura y extracción de datos escaneando el DNI.</li>
+                            <li>Clasificación y archivo automático del historial del cliente.</li>
+                            <li>Integración nativa con los formularios previsionales requeridos.</li>
+                        </ul>
+                    </div>
+                    <div class="module-video">
+                        <div class="video-placeholder">
+                            <i class="fas fa-play-circle"></i>
+                            <span>Espacio para Video Demostrativo</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        function showTab(id, btn) {
+            document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById('tab-' + id).classList.add('active');
+            btn.classList.add('active');
+        }
+    </script>
+{% endblock %}

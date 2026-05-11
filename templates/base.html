@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}V Jornadas de Derecho Previsional{% endblock %}</title>
+    <!-- Fuentes clásicas/académicas -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4a2377; /* Violeta institucional */
+            --primary-light: #6a36a3;
+            --primary-dark: #2a1347;
+            --secondary: #e2e2e2;
+            --bg-body: #f8f9fa;
+            --bg-white: #ffffff;
+            --text-main: #333333;
+            --text-muted: #666666;
+            --link-color: #0056b3;
+            --border-color: #dddddd;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding-top: 60px; /* Espacio para el navbar fijo */
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Merriweather', serif;
+            color: var(--primary-dark);
+        }
+
+        .container {
+            max-width: 1140px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        a {
+            color: var(--link-color);
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* --- NAVBAR ACADÉMICO --- */
+        .navbar {
+            background-color: var(--primary-dark);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .navbar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 60px;
+        }
+
+        .navbar-brand {
+            color: #ffffff;
+            font-weight: 700;
+            font-size: 1.2rem;
+            text-decoration: none;
+        }
+
+        .navbar-brand:hover {
+            text-decoration: none;
+            color: #eeeeee;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-links li a {
+            color: #ffffff;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            font-weight: 500;
+            text-decoration: none;
+            padding: 5px 0;
+            border-bottom: 2px solid transparent;
+            transition: border-color 0.2s;
+        }
+
+        .nav-links li a:hover {
+            border-bottom: 2px solid #ffffff;
+        }
+
+        /* --- FOOTER ACADÉMICO --- */
+        .footer {
+            background-color: #222222;
+            color: #cccccc;
+            padding: 40px 0 20px;
+            margin-top: 60px;
+            font-size: 0.9rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .footer-col h4 {
+            color: #ffffff;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            font-family: 'Roboto', sans-serif;
+            text-transform: uppercase;
+        }
+
+        .footer-col p {
+            margin-bottom: 10px;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 8px;
+        }
+
+        .footer-col ul li a {
+            color: #cccccc;
+        }
+        
+        .footer-col ul li a:hover {
+            color: #ffffff;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #444444;
+            font-size: 0.85rem;
+        }
+
+        /* --- UTILIDADES --- */
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2rem;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background-color: var(--primary);
+        }
+
+        .btn-primary {
+            display: inline-block;
+            background-color: var(--primary);
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: 500;
+            transition: background-color 0.2s;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-light);
+            text-decoration: none;
+        }
+
+        {% block extra_css %}{% endblock %}
+    </style>
+</head>
+<body>
+
+    <!-- BARRA DE NAVEGACIÓN (Estilo WICC/JAIIO) -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="/" class="navbar-brand">V Jornadas de Derecho Previsional</a>
+            <ul class="nav-links">
+                <li><a href="/#inicio">Inicio</a></li>
+                <li><a href="/#fechas">Fechas</a></li>
+                <li><a href="/#trabajos">Envío de Trabajos</a></li>
+                <li><a href="/#autoridades">Autoridades</a></li>
+                <li><a href="/#inscripcion">Inscripción</a></li>
+                <li><a href="/cronograma">Programa</a></li>
+                <li><a href="/modulos_ia">Módulo IA</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- PIE DE PÁGINA INSTITUCIONAL -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h4>Organizan</h4>
+                    <p>Colegio de Abogados y Procuradores de Salta</p>
+                    <p>Caja de Seguridad Social para Abogados de Salta</p>
+                    <p>Asociación de Abogados Previsionalistas</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Contacto</h4>
+                    <p><i class="fas fa-envelope"></i> informes@jornadasdp2026.org.ar</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Salón Caja y Colegio de Abogados, Avda. Memoria Verdad y Justicia S/N, Salta.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Enlaces Rápidos</h4>
+                    <ul>
+                        <li><a href="/#trabajos">Normas para la presentación</a></li>
+                        <li><a href="/#inscripcion">Aranceles y Becas</a></li>
+                        <li><a href="/modulos_ia">Módulo de Innovación (IA)</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                &copy; 2026 V Jornadas de Derecho Previsional. Todos los derechos reservados.
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

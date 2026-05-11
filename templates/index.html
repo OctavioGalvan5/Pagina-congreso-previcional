@@ -1,0 +1,280 @@
+{% extends "base.html" %}
+
+{% block title %}Inicio - V Jornadas de Derecho Previsional{% endblock %}
+
+{% block extra_css %}
+/* Estilos específicos del inicio */
+.hero {
+    /* Un placeholder gris que simboliza la imagen de la sede (Salta) */
+    background: linear-gradient(rgba(42, 19, 71, 0.8), rgba(42, 19, 71, 0.8)), url('https://via.placeholder.com/1920x600/333333/ffffff?text=FOTO+PANOR%C3%81MICA+DE+SALTA') no-repeat center center/cover;
+    color: white;
+    padding: 120px 0;
+    text-align: center;
+    border-bottom: 5px solid var(--primary-light);
+}
+
+.hero h1 {
+    color: white;
+    font-size: 3.5rem;
+    margin-bottom: 10px;
+    letter-spacing: -1px;
+}
+
+.hero .subtitle {
+    font-size: 1.2rem;
+    font-family: 'Merriweather', serif;
+    font-style: italic;
+    color: #e0d4f5;
+    margin-bottom: 30px;
+}
+
+.hero .dates {
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+    display: inline-block;
+    background-color: rgba(255,255,255,0.1);
+    padding: 10px 25px;
+    border-radius: 4px;
+}
+
+.hero .location {
+    font-size: 1.1rem;
+    color: #cccccc;
+}
+
+/* Sección Fechas Importantes */
+.important-dates {
+    background-color: var(--bg-white);
+    padding: 60px 0;
+}
+
+.date-list {
+    max-width: 800px;
+    margin: 0 auto;
+    list-style: none;
+}
+
+.date-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 0;
+    border-bottom: 1px solid var(--border-color);
+    font-size: 1.1rem;
+}
+
+.date-item:last-child {
+    border-bottom: none;
+}
+
+.date-item .date {
+    font-weight: 700;
+    color: var(--primary);
+    width: 250px;
+}
+
+.date-item .event {
+    flex-grow: 1;
+}
+
+/* Call for Papers */
+.call-for-papers {
+    background-color: var(--bg-body);
+    padding: 60px 0;
+}
+
+.cfp-box {
+    background-color: var(--bg-white);
+    border: 1px solid var(--border-color);
+    padding: 40px;
+    border-radius: 4px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+
+.cfp-box h3 {
+    margin-bottom: 20px;
+    color: var(--primary-dark);
+}
+
+/* Inscripción */
+.registration {
+    background-color: var(--bg-white);
+    padding: 60px 0;
+}
+
+.pricing-table {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto 30px;
+    border-collapse: collapse;
+}
+
+.pricing-table th, .pricing-table td {
+    border: 1px solid var(--border-color);
+    padding: 15px;
+    text-align: left;
+}
+
+.pricing-table th {
+    background-color: var(--bg-body);
+    font-weight: 700;
+}
+
+/* Autoridades */
+.authorities {
+    background-color: var(--bg-body);
+    padding: 60px 0;
+}
+
+.auth-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.auth-card {
+    background-color: var(--bg-white);
+    padding: 30px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+}
+
+.auth-card h4 {
+    margin-bottom: 5px;
+    color: var(--primary);
+}
+
+.auth-card p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+{% endblock %}
+
+{% block content %}
+    <!-- HERO SECTION -->
+    <header class="hero" id="inicio">
+        <div class="container">
+            <h1>V Jornadas de Derecho Previsional</h1>
+            <p class="subtitle">"Seguridad Social y federalismo: crisis del sistema y desafíos del ejercicio profesional"</p>
+            <div class="dates">24, 25 y 26 de junio de 2026</div>
+            <p class="location"><i class="fas fa-map-marker-alt"></i> Salta, Argentina - Modalidad Presencial</p>
+        </div>
+    </header>
+
+    <!-- FECHAS IMPORTANTES -->
+    <section class="important-dates" id="fechas">
+        <div class="container">
+            <h2 class="section-title">Fechas Importantes</h2>
+            <ul class="date-list">
+                <li class="date-item">
+                    <span class="date">30 de Marzo, 2026</span>
+                    <span class="event">Fecha límite para presentación de resúmenes</span>
+                </li>
+                <li class="date-item">
+                    <span class="date">15 de Abril, 2026</span>
+                    <span class="event">Notificación de aceptación a los autores</span>
+                </li>
+                <li class="date-item">
+                    <span class="date">10 de Mayo, 2026</span>
+                    <span class="event">Fecha límite para envío de trabajos completos</span>
+                </li>
+                <li class="date-item">
+                    <span class="date">31 de Mayo, 2026</span>
+                    <span class="event">Cierre de inscripción temprana (con descuento)</span>
+                </li>
+                <li class="date-item" style="background-color: #f0f4f8; padding: 15px; font-weight: bold;">
+                    <span class="date">24-26 Junio, 2026</span>
+                    <span class="event">Realización de las Jornadas</span>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- ENVÍO DE TRABAJOS (CALL FOR PAPERS) -->
+    <section class="call-for-papers" id="trabajos">
+        <div class="container">
+            <h2 class="section-title">Presentación de Trabajos</h2>
+            <div class="cfp-box">
+                <h3>Convocatoria a Ponencias</h3>
+                <p style="margin-bottom: 20px;">Invitamos a investigadores, profesionales, docentes y estudiantes a enviar sus trabajos relacionados con el Derecho Previsional y la Seguridad Social. Los trabajos aceptados serán expuestos durante las jornadas y publicados en las Memorias Oficiales (con ISSN).</p>
+                
+                <h4 style="margin-bottom: 10px;">Ejes Temáticos:</h4>
+                <ul style="margin-bottom: 20px; padding-left: 20px; color: var(--text-muted);">
+                    <li>El rol de la abogacía frente a los cambios del sistema previsional.</li>
+                    <li>Federalismo y cajas provinciales.</li>
+                    <li>Litigiosidad previsional y la respuesta de la judicatura.</li>
+                    <li>Innovación tecnológica y herramientas de IA aplicadas al derecho (Ver <a href="/modulos_ia">Módulo de IA</a>).</li>
+                </ul>
+
+                <p style="margin-bottom: 20px;"><strong>Formato:</strong> Los artículos deben seguir el formato provisto por el comité académico. Extensión máxima: 10 páginas.</p>
+                
+                <a href="#" class="btn-primary"><i class="fas fa-upload"></i> Sistema de Envío de Trabajos</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- AUTORIDADES -->
+    <section class="authorities" id="autoridades">
+        <div class="container">
+            <h2 class="section-title">Comité Organizador y Académico</h2>
+            <div class="auth-grid">
+                <div class="auth-card">
+                    <h4>Dra. Julia Toyos</h4>
+                    <p>Directora Académica</p>
+                    <p style="margin-top: 10px;">Estudio TYE</p>
+                </div>
+                <div class="auth-card">
+                    <h4>Dr. Alejandro Castellanos</h4>
+                    <p>Director Académico</p>
+                    <p style="margin-top: 10px;">Especialista en Derecho Previsional</p>
+                </div>
+                <div class="auth-card">
+                    <h4>Comité Científico</h4>
+                    <p>Revisión de Ponencias</p>
+                    <p style="margin-top: 10px;">Integrado por representantes del Colegio de Abogados y especialistas invitados.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- INSCRIPCIÓN -->
+    <section class="registration" id="inscripcion">
+        <div class="container">
+            <h2 class="section-title">Inscripción y Aranceles</h2>
+            <p style="text-align: center; margin-bottom: 30px; max-width: 800px; margin-left: auto; margin-right: auto;">
+                La inscripción incluye acceso a todas las conferencias, paneles, coffee breaks y certificado de asistencia. Los autores con trabajos aceptados deben inscribirse para que su trabajo sea publicado en las memorias.
+            </p>
+            
+            <table class="pricing-table">
+                <thead>
+                    <tr>
+                        <th>Categoría</th>
+                        <th>Hasta el 31/05/2026</th>
+                        <th>A partir del 01/06/2026</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Profesionales General</strong></td>
+                        <td>$ 45.000</td>
+                        <td>$ 60.000</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Jóvenes Abogados (hasta 5 años mat.)</strong></td>
+                        <td>$ 30.000</td>
+                        <td>$ 40.000</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Estudiantes de Grado</strong></td>
+                        <td>$ 15.000</td>
+                        <td>$ 20.000</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div style="text-align: center;">
+                <a href="#" class="btn-primary" style="padding: 15px 30px; font-size: 1.1rem;"><i class="fas fa-edit"></i> Formulario de Inscripción</a>
+            </div>
+        </div>
+    </section>
+{% endblock %}
