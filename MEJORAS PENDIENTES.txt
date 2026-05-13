@@ -1,0 +1,84 @@
+MEJORAS PENDIENTES - V Jornadas de Derecho Previsional
+=======================================================
+
+1. BOTÓN DE WHATSAPP FLOTANTE
+------------------------------
+Qué es: Un botón fijo en la esquina inferior derecha de todas las páginas,
+con el ícono de WhatsApp, que al hacer clic abre una conversación directa.
+
+Info necesaria:
+- Número de WhatsApp (del PDF: +54 9 387 544-6293)
+- Texto de mensaje predefinido (opcional, ej: "Hola, consulto sobre las V Jornadas de Derecho Previsional")
+
+Dónde se agrega: base.html (aparece en toda la app)
+Dificultad: Muy fácil
+
+
+2. CONTADOR REGRESIVO
+----------------------
+Qué es: Un contador en el hero de la página de inicio que muestra los días,
+horas, minutos y segundos que faltan para el inicio de las jornadas (24/06/2026).
+
+Info necesaria:
+- Fecha y hora exacta de inicio (ej: 24/06/2026 14:30 hs)
+- Zona horaria (Argentina, UTC-3)
+
+Dónde se agrega: index.html, dentro del hero
+Dificultad: Fácil (solo JavaScript)
+
+
+3. SECCIÓN DE DISERTANTES EN EL INICIO
+----------------------------------------
+Qué es: Una grilla con foto/avatar, nombre y cargo de los disertantes
+principales en la página de inicio, con link a su página de CV.
+
+Info necesaria:
+- Fotos de los disertantes (opcional, si no hay se usan avatares con iniciales)
+- Decidir cuáles mostrar en el inicio (ej: los directores + 4 o 6 disertantes destacados)
+
+Dónde se agrega: index.html, nueva sección entre Autoridades e Inscripción
+Dificultad: Media
+
+
+4. PREGUNTAS FRECUENTES (FAQ)
+------------------------------
+Qué es: Sección con acordeón de preguntas y respuestas comunes sobre el evento.
+
+Info necesaria (respuestas a estas preguntas):
+- ¿Qué incluye la inscripción? (conferencias, talleres, coffee breaks, almuerzos, certificado)
+- ¿Se entregan certificados? ¿De cuántas horas?
+- ¿Hay estacionamiento en la sede?
+- ¿Cómo llegar desde el centro / aeropuerto?
+- ¿Hay transmisión online?
+- ¿Se puede asistir solo un día?
+- ¿Cómo se puede contactar a la organización?
+
+Dónde se agrega: index.html, nueva sección o página propia /faq
+Dificultad: Fácil
+
+
+5. GALERÍA DE EDICIONES ANTERIORES
+------------------------------------
+Qué es: Una sección con fotos de las jornadas anteriores (I a IV)
+para dar credibilidad y mostrar la trayectoria del evento.
+
+Info necesaria:
+- Fotos de ediciones anteriores (JPG/PNG)
+- Año y sede de cada edición (opcional)
+
+Dónde se agrega: index.html o nueva página /historia
+Dificultad: Media (depende de la cantidad de fotos)
+
+
+6. SECCIÓN DE PRENSA / MATERIAL DESCARGABLE
+---------------------------------------------
+Qué es: Una sección donde los asistentes y medios puedan descargar
+el programa en PDF, flyers y material de difusión.
+
+Info necesaria:
+- Archivo PDF del programa (ya existe en el repositorio)
+- Flyer del evento en JPG o PNG (si existe)
+- Otros materiales de prensa (opcional)
+
+Dónde se agrega: index.html o base.html (footer)
+Dificultad: Muy fácil (solo links a archivos estáticos)

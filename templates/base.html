@@ -105,6 +105,60 @@
             border-bottom: 2px solid #ffffff;
         }
 
+        .nav-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 4px;
+        }
+
+        .nav-toggle span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: white;
+            border-radius: 2px;
+            transition: all 0.3s;
+        }
+
+        @media (max-width: 768px) {
+            .nav-toggle {
+                display: flex;
+            }
+
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                right: 0;
+                background-color: var(--primary-dark);
+                flex-direction: column;
+                gap: 0;
+                padding: 10px 0;
+                box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            }
+
+            .nav-links.open {
+                display: flex;
+            }
+
+            .nav-links li a {
+                display: block;
+                padding: 12px 20px;
+                border-bottom: none;
+                border-top: 1px solid rgba(255,255,255,0.08);
+            }
+
+            .nav-links li a:hover {
+                background: rgba(255,255,255,0.08);
+                border-bottom: none;
+            }
+        }
+
         /* --- FOOTER ACADÉMICO --- */
         .footer {
             background-color: #222222;
@@ -201,10 +255,12 @@
     <nav class="navbar">
         <div class="container">
             <a href="/" class="navbar-brand">V Jornadas de Derecho Previsional</a>
+            <button class="nav-toggle" onclick="this.parentElement.querySelector('.nav-links').classList.toggle('open')" aria-label="Menú">
+                <span></span><span></span><span></span>
+            </button>
             <ul class="nav-links">
                 <li><a href="/#inicio">Inicio</a></li>
                 <li><a href="/#fechas">Fechas</a></li>
-                <li><a href="/#trabajos">Envío de Trabajos</a></li>
                 <li><a href="/#autoridades">Autoridades</a></li>
                 <li><a href="/#inscripcion">Inscripción</a></li>
                 <li><a href="/cronograma">Programa</a></li>
@@ -236,8 +292,7 @@
                 <div class="footer-col">
                     <h4>Enlaces Rápidos</h4>
                     <ul>
-                        <li><a href="/#trabajos">Normas para la presentación</a></li>
-                        <li><a href="/#inscripcion">Aranceles y Becas</a></li>
+                            <li><a href="/#inscripcion">Aranceles e Inscripción</a></li>
                         <li><a href="/modulos_ia">Módulo de Innovación (IA)</a></li>
                     </ul>
                 </div>
@@ -248,5 +303,12 @@
         </div>
     </footer>
 
+    <script>
+        document.querySelectorAll('.nav-links a').forEach(function(link) {
+            link.addEventListener('click', function() {
+                document.querySelector('.nav-links').classList.remove('open');
+            });
+        });
+    </script>
 </body>
 </html>

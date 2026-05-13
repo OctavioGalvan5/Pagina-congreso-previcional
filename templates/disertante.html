@@ -1,0 +1,306 @@
+{% extends "base.html" %}
+
+{% block title %}{{ speaker.nombre }} - V Jornadas de Derecho Previsional{% endblock %}
+
+{% block extra_css %}
+.disertante-header {
+    background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+    padding: 60px 0 50px;
+    color: white;
+}
+
+.disertante-header .breadcrumb {
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.65);
+    margin-bottom: 20px;
+}
+
+.disertante-header .breadcrumb a {
+    color: rgba(255,255,255,0.75);
+    text-decoration: none;
+}
+
+.disertante-header .breadcrumb a:hover {
+    color: white;
+}
+
+.disertante-header .breadcrumb span {
+    margin: 0 8px;
+}
+
+.disertante-avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.15);
+    border: 3px solid rgba(255,255,255,0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    font-size: 2.5rem;
+    color: rgba(255,255,255,0.8);
+}
+
+.disertante-titulo-prefijo {
+    font-size: 1rem;
+    color: rgba(255,255,255,0.65);
+    font-weight: 400;
+    margin-bottom: 4px;
+    font-family: 'Roboto', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.disertante-nombre {
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 10px;
+    font-family: 'Merriweather', serif;
+}
+
+.disertante-rol-badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.2);
+    border: 1px solid rgba(255,255,255,0.35);
+    color: white;
+    padding: 5px 16px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-top: 6px;
+}
+
+.disertante-content {
+    padding: 60px 0 80px;
+    background: var(--bg-body);
+}
+
+.content-grid {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 40px;
+    align-items: start;
+}
+
+.cv-section {
+    background: var(--bg-white);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 35px;
+    margin-bottom: 30px;
+}
+
+.cv-section-title {
+    font-size: 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: var(--primary);
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--bg-body);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.cv-placeholder {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    line-height: 1.7;
+    font-style: italic;
+    padding: 20px;
+    background: var(--bg-body);
+    border-radius: 6px;
+    border: 1px dashed var(--border-color);
+    text-align: center;
+}
+
+.cv-placeholder i {
+    font-size: 1.8rem;
+    display: block;
+    margin-bottom: 10px;
+    color: var(--border-color);
+}
+
+.participacion-card {
+    background: var(--bg-white);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    overflow: hidden;
+    position: sticky;
+    top: 80px;
+}
+
+.participacion-card-header {
+    background: var(--primary);
+    color: white;
+    padding: 16px 20px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.participacion-item {
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--bg-body);
+}
+
+.participacion-item:last-child {
+    border-bottom: none;
+}
+
+.participacion-dia {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--primary-light);
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+}
+
+.participacion-horario {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.participacion-actividad {
+    font-size: 0.9rem;
+    color: var(--text-main);
+    font-weight: 500;
+    line-height: 1.4;
+}
+
+.back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.9rem;
+    margin-bottom: 30px;
+    transition: color 0.2s;
+}
+
+.back-btn:hover {
+    color: var(--primary-dark);
+}
+
+@media (max-width: 768px) {
+    .content-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .participacion-card {
+        position: static;
+    }
+
+    .disertante-nombre {
+        font-size: 1.8rem;
+    }
+}
+{% endblock %}
+
+{% block content %}
+<section class="disertante-header">
+    <div class="container">
+        <div class="breadcrumb">
+            <a href="/">Inicio</a>
+            <span>/</span>
+            <a href="/cronograma">Programa</a>
+            <span>/</span>
+            Disertante
+        </div>
+        <div class="disertante-avatar">
+            <i class="fas fa-user"></i>
+        </div>
+        {% if speaker.titulo %}
+        <div class="disertante-titulo-prefijo">{{ speaker.titulo }}</div>
+        {% endif %}
+        <h1 class="disertante-nombre">
+            {% if speaker.titulo %}
+                {{ speaker.nombre | replace(speaker.titulo + ' ', '') }}
+            {% else %}
+                {{ speaker.nombre }}
+            {% endif %}
+        </h1>
+        {% if speaker.get('rol') %}
+        <span class="disertante-rol-badge"><i class="fas fa-star" style="margin-right: 6px;"></i>{{ speaker.rol }}</span>
+        {% endif %}
+        {% if speaker.get('cargo') %}
+        <span class="disertante-rol-badge"><i class="fas fa-landmark" style="margin-right: 6px;"></i>{{ speaker.cargo }}</span>
+        {% endif %}
+    </div>
+</section>
+
+<section class="disertante-content">
+    <div class="container">
+        <a href="/cronograma" class="back-btn">
+            <i class="fas fa-arrow-left"></i> Volver al programa
+        </a>
+
+        <div class="content-grid">
+            <div>
+                <div class="cv-section">
+                    <h3 class="cv-section-title">
+                        <i class="fas fa-id-card"></i> Currículum Vitae
+                    </h3>
+                    <div class="cv-placeholder">
+                        <i class="fas fa-file-alt"></i>
+                        El currículum vitae de <strong>{{ speaker.nombre }}</strong> estará disponible próximamente.
+                    </div>
+                </div>
+
+                <div class="cv-section">
+                    <h3 class="cv-section-title">
+                        <i class="fas fa-graduation-cap"></i> Área de Especialización
+                    </h3>
+                    <div class="cv-placeholder">
+                        <i class="fas fa-book-open"></i>
+                        Información sobre áreas de especialización en preparación.
+                    </div>
+                </div>
+
+                <div class="cv-section">
+                    <h3 class="cv-section-title">
+                        <i class="fas fa-briefcase"></i> Trayectoria Profesional
+                    </h3>
+                    <div class="cv-placeholder">
+                        <i class="fas fa-history"></i>
+                        Trayectoria profesional en preparación.
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <div class="participacion-card">
+                    <div class="participacion-card-header">
+                        <i class="fas fa-calendar-check"></i>
+                        Participación en las Jornadas
+                    </div>
+                    {% for item in speaker.participacion %}
+                    <div class="participacion-item">
+                        <div class="participacion-dia">{{ item.dia }}</div>
+                        <div class="participacion-horario">
+                            <i class="fas fa-clock"></i> {{ item.horario }}
+                        </div>
+                        <div class="participacion-actividad">{{ item.actividad }}</div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
