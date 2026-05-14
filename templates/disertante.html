@@ -29,17 +29,46 @@
 }
 
 .disertante-avatar {
-    width: 100px;
-    height: 100px;
+    width: 200px;
+    height: 200px;
     border-radius: 50%;
     background: rgba(255,255,255,0.15);
-    border: 3px solid rgba(255,255,255,0.4);
+    border: 4px solid rgba(255,255,255,0.5);
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 20px;
-    font-size: 2.5rem;
+    margin-bottom: 24px;
+    font-size: 4rem;
     color: rgba(255,255,255,0.8);
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+}
+
+.disertante-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+}
+
+.cv-download-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--primary);
+    color: white;
+    padding: 14px 28px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: background 0.2s, transform 0.15s;
+}
+
+.cv-download-btn:hover {
+    background: var(--primary-dark);
+    color: white;
+    transform: translateY(-1px);
 }
 
 .disertante-titulo-prefijo {
@@ -209,6 +238,12 @@
     .disertante-nombre {
         font-size: 1.8rem;
     }
+
+    .disertante-avatar {
+        width: 150px;
+        height: 150px;
+        font-size: 3rem;
+    }
 }
 {% endblock %}
 
@@ -223,7 +258,11 @@
             Disertante
         </div>
         <div class="disertante-avatar">
-            <i class="fas fa-user"></i>
+            {% if speaker.get('foto') %}
+                <img src="/static/img/disertantes/{{ speaker.foto }}" alt="{{ speaker.nombre }}">
+            {% else %}
+                <i class="fas fa-user"></i>
+            {% endif %}
         </div>
         {% if speaker.titulo %}
         <div class="disertante-titulo-prefijo">{{ speaker.titulo }}</div>
@@ -256,31 +295,35 @@
                     <h3 class="cv-section-title">
                         <i class="fas fa-id-card"></i> Currículum Vitae
                     </h3>
+                    {% if speaker.get('cv') %}
+                    <a href="/static/cv/{{ speaker.cv }}" download class="cv-download-btn">
+                        <i class="fas fa-file-download"></i> Descargar CV de {{ speaker.nombre }}
+                    </a>
+                    {% else %}
                     <div class="cv-placeholder">
                         <i class="fas fa-file-alt"></i>
                         El currículum vitae de <strong>{{ speaker.nombre }}</strong> estará disponible próximamente.
                     </div>
+                    {% endif %}
                 </div>
 
+                {% if speaker.get('especializacion') %}
                 <div class="cv-section">
                     <h3 class="cv-section-title">
                         <i class="fas fa-graduation-cap"></i> Área de Especialización
                     </h3>
-                    <div class="cv-placeholder">
-                        <i class="fas fa-book-open"></i>
-                        Información sobre áreas de especialización en preparación.
-                    </div>
+                    <p style="color: var(--text-main); font-size: 0.98rem; line-height: 1.7; margin: 0;">{{ speaker.especializacion }}</p>
                 </div>
+                {% endif %}
 
+                {% if speaker.get('bio') %}
                 <div class="cv-section">
                     <h3 class="cv-section-title">
                         <i class="fas fa-briefcase"></i> Trayectoria Profesional
                     </h3>
-                    <div class="cv-placeholder">
-                        <i class="fas fa-history"></i>
-                        Trayectoria profesional en preparación.
-                    </div>
+                    <p style="color: var(--text-main); font-size: 0.95rem; line-height: 1.8; margin: 0;">{{ speaker.bio }}</p>
                 </div>
+                {% endif %}
             </div>
 
             <div>
