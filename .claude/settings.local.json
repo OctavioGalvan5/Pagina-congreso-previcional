@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(grep -E \"\\\\.\\(py|html|css|js\\)$\")",
+      "Bash(python -c \"from app import app, DISERTANTES; print\\(f'OK - {len\\(DISERTANTES\\)} disertantes cargados'\\); print\\('Slugs:', list\\(DISERTANTES.keys\\(\\)\\)[:5], '...'\\)\")",
+      "Bash(python -c ' *)",
+      "Bash(mkdir -p \"c:/Users/octav/OneDrive/Escritorio/Estudio TYE/congreso-app/static/img/disertantes\")",
+      "Bash(mkdir -p \"c:/Users/octav/OneDrive/Escritorio/Estudio TYE/congreso-app/static/cv\")",
+      "Bash(python3 -)",
+      "Bash(python3 -c \"import app; print\\('OK - disertantes con foto:', sum\\(1 for v in app.DISERTANTES.values\\(\\) if v.get\\('foto'\\)\\)\\); print\\('OK - disertantes con cv:', sum\\(1 for v in app.DISERTANTES.values\\(\\) if v.get\\('cv'\\)\\)\\)\")",
+      "Bash(python3 -c ' *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git -C \"c:\\\\Users\\\\octav\\\\OneDrive\\\\Escritorio\\\\Estudio TYE\\\\congreso-app\" status)",
+      "Bash(git -C \"c:\\\\Users\\\\octav\\\\OneDrive\\\\Escritorio\\\\Estudio TYE\\\\congreso-app\" push)"
+    ]
+  }
+}

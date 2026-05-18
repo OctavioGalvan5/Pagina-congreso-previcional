@@ -335,6 +335,11 @@ def modulos_ia():
     return render_template('modulos_ia.html')
 
 
+@app.route('/beneficios')
+def beneficios():
+    return render_template('beneficios.html')
+
+
 @app.route('/disertante/<slug>')
 def disertante(slug):
     speaker = DISERTANTES.get(slug)
