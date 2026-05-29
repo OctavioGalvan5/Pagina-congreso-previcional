@@ -1,6 +1,36 @@
-from flask import Flask, render_template, abort
+import os
+from flask import Flask, render_template, abort, redirect, url_for, request, flash, send_from_directory
+from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
+from flask_sqlalchemy import SQLAlchemy
+from werkzeug.security import check_password_hash
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = Flask(__name__)
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'dev-secret-key')
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+db = SQLAlchemy(app)
+login_manager = LoginManager(app)
+login_manager.login_view = 'login'
+login_manager.login_message = 'Debes iniciar sesión para acceder a esta sección.'
+login_manager.login_message_category = 'info'
+
+
+class Usuario(UserMixin, db.Model):
+    __tablename__ = 'usuarios'
+    id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String(150), unique=True, nullable=False)
+    password_hash = db.Column(db.String(255), nullable=False)
+    nombre_completo = db.Column(db.String(200), nullable=False)
+
+
+@login_manager.user_loader
+def load_user(user_id):
+    return db.session.get(Usuario, int(user_id))
+
 
 DISERTANTES = {
     "anibal-paz": {
@@ -320,6 +350,8 @@ DISERTANTES = {
 }
 
 
+# --- Rutas públicas ---
+
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -346,6 +378,58 @@ def disertante(slug):
     if not speaker:
         abort(404)
     return render_template('disertante.html', speaker=speaker, slug=slug)
+
+
+# --- Auth ---
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if current_user.is_authenticated:
+        return redirect(url_for('mi_area'))
+    if request.method == 'POST':
+        email = request.form.get('email', '').strip().lower()
+        password = request.form.get('password', '')
+        usuario = Usuario.query.filter_by(email=email).first()
+        if usuario and check_password_hash(usuario.password_hash, password):
+            login_user(usuario)
+            next_page = request.args.get('next')
+            return redirect(next_page or url_for('mi_area'))
+        flash('Email o contraseña incorrectos.', 'error')
+    return render_template('login.html')
+
+
+@app.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for('index'))
+
+
+# --- Área privada ---
+
+@app.route('/mi-area')
+@login_required
+def mi_area():
+    return render_template('mi_area.html')
+
+
+@app.route('/constancia')
+@login_required
+def constancia():
+    return render_template('constancia.html')
+
+
+@app.route('/certificado')
+@login_required
+def certificado():
+    return render_template('certificado.html')
+
+
+@app.route('/programa/descargar')
+@login_required
+def descargar_programa():
+    programa_pdf = os.environ.get('PROGRAMA_PDF', 'programa.pdf')
+    return send_from_directory('static/docs', programa_pdf, as_attachment=True)
 
 
 if __name__ == '__main__':

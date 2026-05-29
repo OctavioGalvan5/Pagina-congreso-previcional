@@ -1,0 +1,130 @@
+{% extends "base.html" %}
+
+{% block title %}Mis documentos — V Jornadas de Derecho Previsional{% endblock %}
+
+{% block extra_css %}
+.mi-area-section {
+    padding: 60px 0;
+}
+
+.welcome-header {
+    margin-bottom: 40px;
+}
+
+.welcome-header h1 {
+    font-size: 1.8rem;
+    margin-bottom: 8px;
+}
+
+.welcome-header p {
+    color: var(--text-muted);
+}
+
+.docs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 28px;
+}
+
+.doc-card {
+    background: var(--bg-white);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 32px 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    transition: box-shadow 0.2s;
+}
+
+.doc-card:hover {
+    box-shadow: 0 4px 18px rgba(0,0,0,0.1);
+}
+
+.doc-card .doc-icon {
+    font-size: 2.4rem;
+    color: var(--primary);
+}
+
+.doc-card h3 {
+    font-size: 1.1rem;
+    margin: 0;
+}
+
+.doc-card p {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    line-height: 1.5;
+    flex-grow: 1;
+    margin: 0;
+}
+
+.doc-card .btn-doc {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background-color: var(--primary);
+    color: white;
+    padding: 10px 18px;
+    border-radius: 4px;
+    font-weight: 500;
+    font-size: 0.95rem;
+    text-decoration: none;
+    transition: background-color 0.2s;
+    align-self: flex-start;
+}
+
+.doc-card .btn-doc:hover {
+    background-color: var(--primary-light);
+    text-decoration: none;
+    color: white;
+}
+
+.doc-card .btn-doc.download {
+    background-color: #1a7a4a;
+}
+
+.doc-card .btn-doc.download:hover {
+    background-color: #145f39;
+}
+{% endblock %}
+
+{% block content %}
+<section class="mi-area-section">
+    <div class="container">
+        <div class="welcome-header">
+            <h1>Bienvenido/a, {{ current_user.nombre_completo }}</h1>
+            <p>V Jornadas Nacionales de Derecho Previsional &middot; Salta, 24, 25 y 26 de junio de 2026</p>
+        </div>
+
+        <div class="docs-grid">
+            <div class="doc-card">
+                <div class="doc-icon"><i class="fas fa-certificate"></i></div>
+                <h3>Constancia de asistencia</h3>
+                <p>Documento que acredita tu participación en las Jornadas. Abre en nueva pestaña para imprimir o guardar como PDF.</p>
+                <a href="/constancia" target="_blank" rel="noopener" class="btn-doc">
+                    <i class="fas fa-print"></i> Abrir e imprimir
+                </a>
+            </div>
+
+            <div class="doc-card">
+                <div class="doc-icon"><i class="fas fa-award"></i></div>
+                <h3>Certificado de participación</h3>
+                <p>Certificado oficial emitido por las instituciones organizadoras. Abre en nueva pestaña para imprimir o guardar como PDF.</p>
+                <a href="/certificado" target="_blank" rel="noopener" class="btn-doc">
+                    <i class="fas fa-print"></i> Abrir e imprimir
+                </a>
+            </div>
+
+            <div class="doc-card">
+                <div class="doc-icon"><i class="fas fa-file-pdf"></i></div>
+                <h3>Programa de las Jornadas</h3>
+                <p>Programa completo con el cronograma de actividades, disertantes y talleres.</p>
+                <a href="/programa/descargar" class="btn-doc download">
+                    <i class="fas fa-download"></i> Descargar PDF
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

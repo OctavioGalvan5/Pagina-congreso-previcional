@@ -1,0 +1,176 @@
+{% extends "base.html" %}
+
+{% block title %}Constancia de asistencia — V Jornadas de Derecho Previsional{% endblock %}
+
+{% block extra_css %}
+.doc-actions {
+    padding: 30px 0 10px;
+    text-align: center;
+}
+
+.doc-actions .btn-print {
+    display: inline-block;
+    background-color: var(--primary);
+    color: white;
+    padding: 10px 24px;
+    border-radius: 4px;
+    font-weight: 500;
+    cursor: pointer;
+    border: none;
+    font-size: 1rem;
+    font-family: 'Roboto', sans-serif;
+    transition: background-color 0.2s;
+    margin-right: 10px;
+}
+
+.doc-actions .btn-print:hover {
+    background-color: var(--primary-light);
+}
+
+.doc-actions .btn-back {
+    display: inline-block;
+    color: var(--primary);
+    padding: 10px 24px;
+    border-radius: 4px;
+    font-weight: 500;
+    font-size: 1rem;
+    border: 1px solid var(--primary);
+    text-decoration: none;
+    transition: background-color 0.2s;
+}
+
+.doc-actions .btn-back:hover {
+    background-color: #f0eaf8;
+    text-decoration: none;
+}
+
+/* Documento imprimible */
+.documento {
+    width: 210mm;
+    min-height: 148mm;
+    margin: 20px auto 40px;
+    background: #ffffff;
+    border: 1px solid #ccc;
+    padding: 30mm 25mm;
+    font-family: 'Merriweather', serif;
+    color: #1a1a1a;
+    position: relative;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+}
+
+.documento .doc-header {
+    text-align: center;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #4a2377;
+    padding-bottom: 16px;
+}
+
+.documento .doc-header .org-names {
+    font-size: 0.75rem;
+    font-family: 'Roboto', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #555;
+    margin-bottom: 8px;
+}
+
+.documento .doc-header h2 {
+    font-size: 1rem;
+    color: #4a2377;
+    margin: 0;
+    font-weight: 700;
+}
+
+.documento .doc-tipo {
+    text-align: center;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #2a1347;
+    margin: 24px 0 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.documento .doc-body {
+    font-size: 0.95rem;
+    line-height: 1.9;
+    text-align: justify;
+}
+
+.documento .doc-body .nombre-participante {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #4a2377;
+    display: block;
+    text-align: center;
+    margin: 12px 0;
+}
+
+.documento .doc-footer {
+    margin-top: 40px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    font-family: 'Roboto', sans-serif;
+    color: #666;
+    border-top: 1px solid #ddd;
+    padding-top: 12px;
+}
+
+@media print {
+    body * {
+        visibility: hidden;
+    }
+    .documento, .documento * {
+        visibility: visible;
+    }
+    .documento {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        border: none;
+        box-shadow: none;
+        margin: 0;
+        padding: 20mm 20mm;
+    }
+    .doc-actions, .navbar, .footer {
+        display: none !important;
+    }
+}
+{% endblock %}
+
+{% block content %}
+<div class="doc-actions no-print">
+    <button onclick="window.print()" class="btn-print"><i class="fas fa-print"></i> Imprimir / Guardar PDF</button>
+    <a href="/mi-area" class="btn-back">Volver al área</a>
+</div>
+
+<div class="documento">
+    <div class="doc-header">
+        <div class="org-names">Colegio de Abogados y Procuradores de Salta · Caja de Seguridad Social para Abogados de Salta</div>
+        <h2>V Jornadas Nacionales de Derecho Previsional · Salta, 24, 25 y 26 de junio de 2026</h2>
+    </div>
+
+    <div class="doc-tipo">Constancia de Asistencia</div>
+
+    <div class="doc-body">
+        <p>
+            Se hace constar que
+            <span class="nombre-participante">{{ current_user.nombre_completo }}</span>
+            participó de las <strong>V Jornadas Nacionales de Derecho Previsional</strong>, organizadas por el
+            Colegio de Abogados y Procuradores de Salta y la Caja de Seguridad Social para Abogados de Salta,
+            celebradas los días <strong>24, 25 y 26 de junio de 2026</strong> en el Salón del Colegio y Caja de
+            Abogados, Avda. Memoria Verdad y Justicia S/N, ciudad de Salta.
+        </p>
+        <p>
+            Se extiende la presente constancia a solicitud de la parte interesada, para los fines que estime pertinentes.
+        </p>
+    </div>
+
+    <div class="doc-footer">
+        <span>Salta, junio de 2026</span>
+        <span>V Jornadas Nacionales de Derecho Previsional</span>
+    </div>
+</div>
+{% endblock %}
