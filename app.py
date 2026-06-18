@@ -1,11 +1,19 @@
 import os
-from flask import Flask, render_template, abort, redirect, url_for, request, flash, send_from_directory
+import io
+from flask import Flask, render_template, abort, redirect, url_for, request, flash, send_from_directory, send_file
+from pypdf import PdfReader, PdfWriter
+from reportlab.pdfgen import canvas as rl_canvas
+from reportlab.lib.colors import HexColor
+from reportlab.pdfbase import pdfmetrics
+from reportlab.pdfbase.ttfonts import TTFont
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import check_password_hash
 from dotenv import load_dotenv
 
 load_dotenv()
+
+pdfmetrics.registerFont(TTFont('KunstlerScript', os.path.join('static', 'fonts', 'KunstlerScript.ttf')))
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'dev-secret-key')
@@ -25,6 +33,7 @@ class Usuario(UserMixin, db.Model):
     email = db.Column(db.String(150), unique=True, nullable=False)
     password_hash = db.Column(db.String(255), nullable=False)
     nombre_completo = db.Column(db.String(200), nullable=False)
+    modalidad = db.Column(db.String(20), nullable=False, default='presencial')
 
 
 @login_manager.user_loader
@@ -416,13 +425,64 @@ def mi_area():
 @app.route('/constancia')
 @login_required
 def constancia():
-    return render_template('constancia.html')
+    if current_user.modalidad == 'virtual':
+        template = 'Constancia de participación virtual.pdf'
+        y_ratio = 0.62
+    else:
+        template = 'Constancia de participación presencial.pdf'
+        y_ratio = 0.62
+    output = _generar_certificado_pdf(template, current_user.nombre_completo, y_ratio=y_ratio, font_size=36)
+    nombre_archivo = f'Constancia - {current_user.nombre_completo}.pdf'
+    return send_file(output, mimetype='application/pdf', as_attachment=True, download_name=nombre_archivo)
+
+
+def _generar_certificado_pdf(template_filename, nombre_participante, y_ratio=0.41, font_size=48):
+    template_path = os.path.join('static', 'docs', template_filename)
+    reader = PdfReader(template_path)
+    page = reader.pages[0]
+    page_width = float(page.mediabox.width)
+    page_height = float(page.mediabox.height)
+
+    packet = io.BytesIO()
+    c = rl_canvas.Canvas(packet, pagesize=(page_width, page_height))
+    c.setFont("KunstlerScript", font_size)
+    c.setFillColor(HexColor('#000000'))
+    c.drawCentredString(page_width / 2, page_height * y_ratio, nombre_participante)
+    c.save()
+    packet.seek(0)
+
+    page.merge_page(PdfReader(packet).pages[0])
+
+    writer = PdfWriter()
+    writer.add_page(page)
+
+    output = io.BytesIO()
+    writer.write(output)
+    output.seek(0)
+    return output
 
 
 @app.route('/certificado')
 @login_required
 def certificado():
-    return render_template('certificado.html')
+    output = _generar_certificado_pdf(
+        'Certificado Participacion V Jornadas de Derecho Previsional.pdf',
+        current_user.nombre_completo
+    )
+    nombre_archivo = f'Certificado - {current_user.nombre_completo}.pdf'
+    return send_file(output, mimetype='application/pdf', as_attachment=True, download_name=nombre_archivo)
+
+
+@app.route('/certificado-virtual')
+@login_required
+def certificado_virtual():
+    output = _generar_certificado_pdf(
+        'Certificado Participacion V Jornadas de Derecho Previsional virtual .pdf',
+        current_user.nombre_completo,
+        y_ratio=0.43
+    )
+    nombre_archivo = f'Certificado - {current_user.nombre_completo}.pdf'
+    return send_file(output, mimetype='application/pdf', as_attachment=True, download_name=nombre_archivo)
 
 
 @app.route('/programa/descargar')

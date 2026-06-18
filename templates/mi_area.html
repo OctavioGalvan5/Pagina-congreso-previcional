@@ -101,19 +101,25 @@
             <div class="doc-card">
                 <div class="doc-icon"><i class="fas fa-certificate"></i></div>
                 <h3>Constancia de asistencia</h3>
-                <p>Documento que acredita tu participación en las Jornadas. Abre en nueva pestaña para imprimir o guardar como PDF.</p>
-                <a href="/constancia" target="_blank" rel="noopener" class="btn-doc">
-                    <i class="fas fa-print"></i> Abrir e imprimir
+                <p>Documento que acredita tu participación en las Jornadas.</p>
+                <a href="/constancia" class="btn-doc download">
+                    <i class="fas fa-download"></i> Descargar PDF
                 </a>
             </div>
 
             <div class="doc-card">
                 <div class="doc-icon"><i class="fas fa-award"></i></div>
                 <h3>Certificado de participación</h3>
-                <p>Certificado oficial emitido por las instituciones organizadoras. Abre en nueva pestaña para imprimir o guardar como PDF.</p>
-                <a href="/certificado" target="_blank" rel="noopener" class="btn-doc">
-                    <i class="fas fa-print"></i> Abrir e imprimir
+                <p>Certificado oficial emitido por las instituciones organizadoras.</p>
+                {% if current_user.modalidad == 'virtual' %}
+                <a href="/certificado-virtual" class="btn-doc download">
+                    <i class="fas fa-download"></i> Descargar PDF
                 </a>
+                {% else %}
+                <a href="/certificado" class="btn-doc download">
+                    <i class="fas fa-download"></i> Descargar PDF
+                </a>
+                {% endif %}
             </div>
 
             <div class="doc-card">
