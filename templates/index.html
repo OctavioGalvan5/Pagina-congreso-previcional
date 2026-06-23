@@ -361,4 +361,23 @@
             </div>
         </div>
     </section>
+
+    <!-- ORGANIZAN Y AUSPICIAN -->
+    <section style="background-color:var(--bg-white);padding:60px 0;border-top:1px solid var(--border-color);">
+        <div class="container">
+
+            <h2 class="section-title" style="margin-bottom:40px;">Organizan</h2>
+            <div style="display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:40px;margin-bottom:60px;">
+                <img src="{{ url_for('static', filename='img/logos organizantes/logos instituciones que organizan.png') }}" alt="Instituciones organizadoras" style="max-width:600px;width:100%;height:auto;">
+            </div>
+
+            <h2 class="section-title" style="margin-bottom:40px;">Auspician</h2>
+            <div style="display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:48px;">
+                <img src="{{ url_for('static', filename='img/logos auspiciantes/Allaria.png') }}" alt="Allaria" style="max-height:70px;width:auto;object-fit:contain;">
+                <img src="{{ url_for('static', filename='img/logos auspiciantes/Banco Hipotecario_Logo.png') }}" alt="Banco Hipotecario" style="max-height:70px;width:auto;object-fit:contain;">
+                <img src="{{ url_for('static', filename='img/logos auspiciantes/BANCO MACRO_LOGO.png') }}" alt="Banco Macro" style="max-height:70px;width:auto;object-fit:contain;">
+            </div>
+
+        </div>
+    </section>
 {% endblock %}
