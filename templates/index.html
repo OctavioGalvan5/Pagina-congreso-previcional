@@ -43,6 +43,69 @@
     color: #cccccc;
 }
 
+/* Encuesta anónima */
+.encuesta-banner {
+    background: linear-gradient(135deg, var(--primary-dark, #2a1347) 0%, #4a2080 100%);
+    padding: 20px 0;
+    border-bottom: 3px solid var(--primary-light, #9b59b6);
+}
+.encuesta-inner {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    flex-wrap: wrap;
+}
+.encuesta-icon {
+    font-size: 2rem;
+    color: #e0c8ff;
+    flex-shrink: 0;
+}
+.encuesta-text {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    color: white;
+}
+.encuesta-text strong {
+    font-size: 1.05rem;
+    color: #f0e6ff;
+}
+.encuesta-text span {
+    font-size: 0.92rem;
+    color: #cbb8e8;
+    font-style: italic;
+}
+.encuesta-btn {
+    background-color: #ffffff;
+    color: #2a1347;
+    font-weight: 700;
+    padding: 10px 22px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 0.95rem;
+    white-space: nowrap;
+    transition: background 0.2s, color 0.2s;
+    flex-shrink: 0;
+}
+.encuesta-btn:hover {
+    background-color: #e0c8ff;
+    color: #1a0b2e;
+}
+.encuesta-btn i {
+    margin-left: 6px;
+    font-size: 0.8rem;
+}
+@media (max-width: 600px) {
+    .encuesta-inner {
+        flex-direction: column;
+        text-align: center;
+    }
+    .encuesta-btn {
+        width: 100%;
+        text-align: center;
+    }
+}
+
 /* Sección Fechas Importantes */
 .important-dates {
     background-color: var(--bg-white);
@@ -228,6 +291,22 @@
             <p class="location"><i class="fas fa-map-marker-alt"></i> Salta, Argentina - Modalidad Presencial</p>
         </div>
     </header>
+
+    <!-- ENCUESTA ANÓNIMA -->
+    <section class="encuesta-banner">
+        <div class="container">
+            <div class="encuesta-inner">
+                <div class="encuesta-icon"><i class="fas fa-poll"></i></div>
+                <div class="encuesta-text">
+                    <strong>Encuesta anónima – V Jornadas Previsionales</strong>
+                    <span>¿Qué seguridad social queremos?</span>
+                </div>
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSfQGk6K6nSHOdCdepSOMlZgKj66MqJJJDfwKGs9b0dSeV0d8g/viewform?usp=sharing&ouid=104412723479778656217" target="_blank" rel="noopener" class="encuesta-btn">
+                    Completar encuesta <i class="fas fa-external-link-alt"></i>
+                </a>
+            </div>
+        </div>
+    </section>
 
     <!-- SOBRE LAS JORNADAS -->
     <section class="sobre-jornadas">
