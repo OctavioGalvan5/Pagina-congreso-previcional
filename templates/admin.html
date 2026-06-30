@@ -1,0 +1,400 @@
+{% extends "base.html" %}
+
+{% block title %}Panel de Administración — V Jornadas de Derecho Previsional{% endblock %}
+
+{% block extra_css %}
+.admin-section {
+    padding: 60px 0;
+}
+
+.admin-header {
+    margin-bottom: 28px;
+}
+
+.admin-header h1 {
+    font-size: 1.8rem;
+    margin-bottom: 6px;
+}
+
+.admin-header p {
+    color: var(--text-muted);
+}
+
+.admin-toolbar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.search-wrap {
+    position: relative;
+    flex: 1;
+    min-width: 220px;
+    max-width: 400px;
+}
+
+.search-wrap i {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+#searchInput {
+    width: 100%;
+    padding: 9px 12px 9px 36px;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    font-size: 0.95rem;
+}
+
+#searchInput:focus {
+    outline: none;
+    border-color: var(--primary);
+}
+
+.total-badge {
+    background: var(--primary);
+    color: white;
+    border-radius: 20px;
+    padding: 4px 12px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.filter-btns {
+    display: flex;
+    gap: 6px;
+}
+
+.filter-btn {
+    background: var(--bg-white);
+    border: 1px solid var(--border-color);
+    color: var(--text-muted);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s;
+    white-space: nowrap;
+}
+
+.filter-btn:hover { border-color: var(--primary); color: var(--primary); }
+.filter-btn.active { background: var(--primary); border-color: var(--primary); color: white; }
+
+.flash-messages {
+    margin-bottom: 20px;
+}
+
+.flash-msg {
+    padding: 12px 16px;
+    border-radius: 6px;
+    margin-bottom: 10px;
+    font-size: 0.95rem;
+}
+
+.flash-msg.success {
+    background: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.flash-msg.error {
+    background: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+.users-table-wrap {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--bg-white);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+thead {
+    background: var(--primary);
+    color: white;
+}
+
+thead th {
+    padding: 13px 16px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 0.85rem;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+}
+
+tbody tr.user-row {
+    border-bottom: 1px solid var(--border-color);
+    transition: background 0.15s;
+}
+
+tbody tr.user-row:hover {
+    background: #f5f3fa;
+}
+
+tbody tr.edit-row {
+    border-bottom: 1px solid var(--border-color);
+    background: #faf8ff;
+    display: none;
+}
+
+tbody tr.edit-row.open {
+    display: table-row;
+}
+
+tbody td {
+    padding: 12px 16px;
+    font-size: 0.93rem;
+    vertical-align: middle;
+}
+
+.badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.badge.presencial { background: #d4edda; color: #155724; }
+.badge.virtual    { background: #cce5ff; color: #004085; }
+
+.btn-edit {
+    background: none;
+    border: 1px solid var(--primary);
+    color: var(--primary);
+    padding: 5px 12px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+}
+
+.btn-edit:hover, .btn-edit.active {
+    background: var(--primary);
+    color: white;
+}
+
+.edit-form-inner {
+    padding: 16px 20px 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr auto;
+    gap: 12px;
+    align-items: end;
+}
+
+@media (max-width: 900px) {
+    .edit-form-inner {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+.form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.form-field label {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.form-field input,
+.form-field select {
+    padding: 7px 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    font-size: 0.92rem;
+}
+
+.form-field input:focus,
+.form-field select:focus {
+    outline: none;
+    border-color: var(--primary);
+}
+
+.btn-save {
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 8px 18px;
+    border-radius: 4px;
+    font-size: 0.92rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+    white-space: nowrap;
+    height: fit-content;
+}
+
+.btn-save:hover {
+    background: var(--primary-light);
+}
+
+.no-results {
+    text-align: center;
+    padding: 32px;
+    color: var(--text-muted);
+    font-style: italic;
+    display: none;
+}
+{% endblock %}
+
+{% block content %}
+<section class="admin-section">
+    <div class="container">
+        <div class="admin-header">
+            <h1>Panel de Administración</h1>
+            <p>Gestioná los accesos de los participantes.</p>
+        </div>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        <div class="flash-messages">
+            {% for category, message in messages %}
+            <div class="flash-msg {{ category }}">{{ message }}</div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% endwith %}
+
+        <div class="admin-toolbar">
+            <div class="search-wrap">
+                <i class="fas fa-search"></i>
+                <input type="text" id="searchInput" placeholder="Buscar por email o nombre...">
+            </div>
+            <div class="filter-btns">
+                <button class="filter-btn active" onclick="setModalidad('', this)">Todos</button>
+                <button class="filter-btn" onclick="setModalidad('presencial', this)">Presencial</button>
+                <button class="filter-btn" onclick="setModalidad('virtual', this)">Virtual</button>
+            </div>
+            <span class="total-badge" id="countBadge">{{ usuarios|length }} usuarios</span>
+        </div>
+
+        <div class="users-table-wrap">
+            <table id="usersTable">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Email</th>
+                        <th>Nombre completo</th>
+                        <th>Modalidad</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for u in usuarios %}
+                    <tr class="user-row" data-search="{{ u.email|lower }} {{ u.nombre_completo|lower }}" data-modalidad="{{ u.modalidad }}">
+                        <td>{{ loop.index }}</td>
+                        <td>{{ u.email }}</td>
+                        <td>{{ u.nombre_completo }}</td>
+                        <td><span class="badge {{ u.modalidad }}">{{ u.modalidad }}</span></td>
+                        <td>
+                            <button class="btn-edit" onclick="toggleEdit({{ u.id }}, this)">
+                                <i class="fas fa-pen"></i> Editar
+                            </button>
+                        </td>
+                    </tr>
+                    <tr class="edit-row" id="edit-{{ u.id }}">
+                        <td colspan="5">
+                            <form method="POST" action="/admin/editar/{{ u.id }}">
+                                <div class="edit-form-inner">
+                                    <div class="form-field">
+                                        <label>Email</label>
+                                        <input type="email" name="email" value="{{ u.email }}" required>
+                                    </div>
+                                    <div class="form-field">
+                                        <label>Nombre completo</label>
+                                        <input type="text" name="nombre_completo" value="{{ u.nombre_completo }}" required>
+                                    </div>
+                                    <div class="form-field">
+                                        <label>Modalidad</label>
+                                        <select name="modalidad">
+                                            <option value="presencial" {% if u.modalidad == 'presencial' %}selected{% endif %}>Presencial</option>
+                                            <option value="virtual" {% if u.modalidad == 'virtual' %}selected{% endif %}>Virtual</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-field">
+                                        <label>Nueva contraseña <span style="font-weight:400;text-transform:none">(opcional)</span></label>
+                                        <input type="password" name="nueva_password" placeholder="Dejar vacío para no cambiar">
+                                    </div>
+                                    <button type="submit" class="btn-save">
+                                        <i class="fas fa-save"></i> Guardar
+                                    </button>
+                                </div>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    <tr id="noResults" class="no-results" style="display:none">
+                        <td colspan="5">No se encontraron resultados.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<script>
+var currentModalidad = '';
+
+function toggleEdit(uid, btn) {
+    var row = document.getElementById('edit-' + uid);
+    var isOpen = row.classList.contains('open');
+    document.querySelectorAll('.edit-row.open').forEach(function(r) { r.classList.remove('open'); });
+    document.querySelectorAll('.btn-edit.active').forEach(function(b) { b.classList.remove('active'); });
+    if (!isOpen) {
+        row.classList.add('open');
+        btn.classList.add('active');
+    }
+}
+
+function setModalidad(val, btn) {
+    currentModalidad = val;
+    document.querySelectorAll('.filter-btn').forEach(function(b) { b.classList.remove('active'); });
+    btn.classList.add('active');
+    applyFilters();
+}
+
+function applyFilters() {
+    var q = document.getElementById('searchInput').value.toLowerCase().trim();
+    var rows = document.querySelectorAll('#usersTable tbody .user-row');
+    var visible = 0;
+    rows.forEach(function(row) {
+        var textMatch = !q || row.getAttribute('data-search').includes(q);
+        var modalMatch = !currentModalidad || row.getAttribute('data-modalidad') === currentModalidad;
+        var show = textMatch && modalMatch;
+        row.style.display = show ? '' : 'none';
+        var uid = row.querySelector('.btn-edit').getAttribute('onclick').match(/\d+/);
+        if (uid && !show) document.getElementById('edit-' + uid[0]).classList.remove('open');
+        if (show) visible++;
+    });
+    document.getElementById('countBadge').textContent = visible + ' usuario' + (visible !== 1 ? 's' : '');
+    document.getElementById('noResults').style.display = visible === 0 ? 'table-row' : 'none';
+}
+
+document.getElementById('searchInput').addEventListener('input', applyFilters);
+</script>
+{% endblock %}

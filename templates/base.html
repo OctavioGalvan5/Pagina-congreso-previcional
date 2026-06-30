@@ -308,6 +308,9 @@
                 <li><a href="/beneficios">Beneficios</a></li>
                 <li><a href="/modulos_ia">Módulo IA</a></li>
                 {% if current_user.is_authenticated %}
+                {% if current_user.email == 'admin@gmail.com' %}
+                <li><a href="/admin">Admin</a></li>
+                {% endif %}
                 <li><a href="/mi-area">Mi área</a></li>
                 <li><a href="/logout">Cerrar sesión</a></li>
                 {% else %}

@@ -8,7 +8,7 @@ from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 from flask_sqlalchemy import SQLAlchemy
-from werkzeug.security import check_password_hash
+from werkzeug.security import check_password_hash, generate_password_hash
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -490,6 +490,58 @@ def certificado_virtual():
 def descargar_programa():
     programa_pdf = os.environ.get('PROGRAMA_PDF', 'programa.pdf')
     return send_from_directory('static/docs', programa_pdf, as_attachment=True)
+
+
+ADMIN_EMAIL = 'admin@gmail.com'
+
+
+def admin_required(f):
+    from functools import wraps
+    @wraps(f)
+    def decorated(*args, **kwargs):
+        if not current_user.is_authenticated or current_user.email != ADMIN_EMAIL:
+            abort(403)
+        return f(*args, **kwargs)
+    return decorated
+
+
+@app.route('/admin')
+@login_required
+@admin_required
+def admin_panel():
+    usuarios = Usuario.query.order_by(Usuario.nombre_completo).all()
+    return render_template('admin.html', usuarios=usuarios)
+
+
+@app.route('/admin/editar/<int:uid>', methods=['POST'])
+@login_required
+@admin_required
+def admin_editar_usuario(uid):
+    usuario = db.session.get(Usuario, uid)
+    if not usuario:
+        abort(404)
+    email = request.form.get('email', '').strip().lower()
+    nombre = request.form.get('nombre_completo', '').strip()
+    modalidad = request.form.get('modalidad', '').strip()
+    nueva_password = request.form.get('nueva_password', '').strip()
+
+    if not email or not nombre or modalidad not in ('presencial', 'virtual'):
+        flash('Datos inválidos.', 'error')
+        return redirect(url_for('admin_panel'))
+
+    existente = Usuario.query.filter(Usuario.email == email, Usuario.id != uid).first()
+    if existente:
+        flash(f'El email {email} ya está en uso por otro usuario.', 'error')
+        return redirect(url_for('admin_panel'))
+
+    usuario.email = email
+    usuario.nombre_completo = nombre
+    usuario.modalidad = modalidad
+    if nueva_password:
+        usuario.password_hash = generate_password_hash(nueva_password)
+    db.session.commit()
+    flash(f'Usuario {email} actualizado correctamente.', 'success')
+    return redirect(url_for('admin_panel'))
 
 
 if __name__ == '__main__':
