@@ -367,8 +367,15 @@ def index():
 
 
 @app.route('/cronograma')
+@login_required
 def cronograma():
     return render_template('cronograma.html')
+
+
+@app.route('/presentaciones/<path:filename>')
+@login_required
+def descargar_presentacion(filename):
+    return send_from_directory('static/presentaciones', filename, as_attachment=True)
 
 
 @app.route('/modulos_ia')
