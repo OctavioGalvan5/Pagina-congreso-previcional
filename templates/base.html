@@ -32,7 +32,7 @@
             background-color: var(--bg-body);
             color: var(--text-main);
             line-height: 1.6;
-            padding-top: 60px; /* Espacio para el navbar fijo */
+            padding-top: {{ '0' if solo_ia else '60px' }}; /* Espacio para el navbar fijo */
         }
 
         h1, h2, h3, h4 {
@@ -290,6 +290,7 @@
 </head>
 <body>
 
+    {% if not solo_ia %}
     <div class="nav-overlay" id="navOverlay"></div>
 
     <!-- BARRA DE NAVEGACIÓN (Estilo WICC/JAIIO) -->
@@ -319,12 +320,14 @@
             </ul>
         </div>
     </nav>
+    {% endif %}
 
     <!-- CONTENIDO PRINCIPAL -->
     <main>
         {% block content %}{% endblock %}
     </main>
 
+    {% if not solo_ia %}
     <!-- PIE DE PÁGINA INSTITUCIONAL -->
     <footer class="footer">
         <div class="container">
@@ -424,5 +427,6 @@
             });
         })();
     </script>
+    {% endif %}
 </body>
 </html>

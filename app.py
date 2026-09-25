@@ -20,6 +20,10 @@ app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'dev-secret-key')
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
+# Modo exposición: si está activo, el sitio muestra únicamente el módulo de IA.
+# Para volver a la web completa del congreso: SOLO_MODULO_IA=0 en el entorno/.env
+SOLO_MODULO_IA = os.environ.get('SOLO_MODULO_IA', '1') != '0'
+
 db = SQLAlchemy(app)
 login_manager = LoginManager(app)
 login_manager.login_view = 'login'
@@ -361,8 +365,21 @@ DISERTANTES = {
 
 # --- Rutas públicas ---
 
+@app.before_request
+def modo_solo_modulo_ia():
+    if SOLO_MODULO_IA and request.endpoint not in ('index', 'static'):
+        return redirect(url_for('index'))
+
+
+@app.context_processor
+def inject_modo():
+    return {'solo_ia': SOLO_MODULO_IA}
+
+
 @app.route('/')
 def index():
+    if SOLO_MODULO_IA:
+        return render_template('modulos_ia.html')
     return render_template('index.html')
 
 

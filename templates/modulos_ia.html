@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Módulo IA - V Jornadas de Derecho Previsional{% endblock %}
+{% block title %}{% if solo_ia %}Innovación Tecnológica e IA{% else %}Módulo IA - V Jornadas de Derecho Previsional{% endif %}{% endblock %}
 
 {% block extra_css %}
 /* ─── MODULO IA ───────────────────── */
@@ -133,6 +133,24 @@
     margin-bottom: 16px;
     display: block;
 }
+
+{% if solo_ia %}
+.ia-header {
+    background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+    padding: 48px 0 40px;
+    margin-bottom: 40px;
+}
+.ia-header .section-title,
+.ia-header p {
+    color: #ffffff !important;
+}
+.ia-header .section-title::after {
+    background-color: #ffffff;
+}
+.container {
+    max-width: 1280px;
+}
+{% endif %}
 
 @media (max-width: 768px) {
     .module-card {
